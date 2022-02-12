@@ -3,13 +3,12 @@ import AlertLight from './AlertLight'
 import Toilet from '../images/toilet.png';
 
 
-const Card = () => {
-    return (<div> <AlertLight />
+const Card = (props) => {
+    return (<div>
         <div className="card">
             <img src={Toilet} alt="toilet" />
-            <h1>Is Occupied : True</h1>
-            <h1>esimate Time: 10min</h1>
-            <h1>In toilet : 10min</h1>
+            <h1>esimate Time: {props.averageTime}</h1>
+            <h1>In toilet : {props.lastTime}</h1>
         </div>
         </div>
     )
