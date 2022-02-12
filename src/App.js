@@ -10,7 +10,7 @@ function App() {
     
     <div className="App">
       <div className="heading">
-        <h1>ห้องน้ำ</h1>
+        <h1 className='title'>Toilet Status</h1>
       </div>
       <div className="content">
         {rooms.map((room) => (
