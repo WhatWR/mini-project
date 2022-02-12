@@ -2,25 +2,34 @@ import React, { useEffect, useState } from 'react'
 import AlertLight from '../components/AlertLight';
 import Card from '../components/Card';
 import axios from 'axios';
-import data from '../dummy'
+import ConvertTime from '../service/ConvertTime'
+import ConvertTimeDate from '../service/ConverTimeDate'
 
 const Home = () => {
     const [rooms, setRoom] = useState([]);
-    // const getData = async () => {
-    //     const response = await axios.get(`https://ecourse.cpe.ku.ac.th/exceed09/api/status/`)
-    //     setRoom(response.data.rooms)
-    //     console.log(rooms);
-   
-    // }
-    const getData = () => {
-        setRoom(data.rooms)
+    const getData = async () => {
+        const response = await axios.get(`https://ecourse.cpe.ku.ac.th/exceed09/api/status/`)
+        const temp = response.data.rooms
+        for (let index = 0; index < temp.length; index++) {
+            temp[index].averageTime = ConvertTime(temp[index].averageTime)
+            temp[index].diffTime = ConvertTime(temp[index].diffTime)
+            temp[index].startTime = ConvertTimeDate(temp[index].startTime)
+        }
+        setRoom(temp)
+        console.log(ConvertTimeDate('2022-02-12T09:16:21.623000'));
+
+
     }
+    
+    
+
+
 
     useEffect(() => {
         const interval = setInterval(() => {
             getData()
-        }, 3000)
-        
+        }, 1000)
+
         return () => clearInterval(interval)
     }, )
 
@@ -28,7 +37,7 @@ const Home = () => {
 
         <div className="App">
             <div className="heading">
-                <h1>ห้องน้ำ</h1>
+                <h1 className='title'>Toilet Status</h1>
             </div>
             <div className="content">
                 {rooms.map((room) => (
@@ -37,6 +46,8 @@ const Home = () => {
                             status={room.status}
                         />
                         <Card
+                            roomNumber = {room.roomNumber}
+                            status = {room.status}
                             startTime={room.startTime}
                             averageTime={room.averageTime}
                             diffTime={room.diffTime}
