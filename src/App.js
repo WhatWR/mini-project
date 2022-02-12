@@ -1,37 +1,16 @@
 import './App.css'
-import Card from './components/Card'
-import AlertLight from './components/AlertLight'
-import { useState } from 'react';
-import data from './dummy';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 
-function App() {
-  const [rooms, setRoom] = useState(data.rooms);
+const App = () => {
   return (
-    
-    <div className="App">
-      <div className="heading">
-        <h1>ห้องน้ำ</h1>
-      </div>
-      <div className="content">
-        {rooms.map((room) => (
-          <div className="">
-            <AlertLight 
-            status = {room.status}
-            />
-            <Card 
-            averageTime = {room.averageTime}
-            lastTime = {room.lastTime}
-            />
-            
-          </div>
-
-        ))}
-        
-      </div>
+    <div className='App'>
+        <Routes>
+          <Route path='*' element={<Home />} />
+        </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
-
-    
+export default App;
